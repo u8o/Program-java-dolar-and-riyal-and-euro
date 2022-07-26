@@ -1,0 +1,44 @@
+import java.net.*;
+import java.io.*;
+import java.util.*; 
+
+class Client {
+	public static void main(String args[]) throws Exception {
+		Socket socket = new Socket("localhost",3916);
+		System.out.println("From Server Present Currency Rates: "+ "\n"
+				+ "1 SAR = 0.26 USD" + "\n"
++ "1 SAR = 0.24 EUR" + "\n"
+				+ "1 SAR = 0.20 GBP" + "\n"
+				+ "1 SAR = 1.73 CNY");
+		PrintWriter p1 = new PrintWriter(socket.getOutputStream(), true);
+		Scanner Scanner = new Scanner(socket.getInputStream());
+		Scanner in = new Scanner(System.in);
+		String num ="";
+
+		while(!(num.equals("Bye"))){
+			System.out.print("Enter currency in SAR or Bye to Exit:");
+			num = in.nextLine();
+			p1.println(num);
+			if (num.equals("Bye")){
+				String s1 = Scanner.nextLine();
+				System.out.println("Recieved From Server : ");
+				System.out.println(s1);
+				System.out.println();
+				break;
+			}
+			String s1 = Scanner.nextLine();
+			String s2 = Scanner.nextLine();
+			String s3 = Scanner.nextLine();
+			String s4 = Scanner.nextLine();
+			
+			System.out.println("Recieved From Server : ");
+			System.out.println(s1);
+			System.out.println(s2);
+			System.out.println(s3);
+			System.out.println(s4);
+			System.out.println();
+		}
+		socket.close();
+		
+	}
+}
