@@ -1,0 +1,35 @@
+import java.net.*; 
+import java.io.*; 
+import java.util.*;
+
+class Server{
+	public static void main(String args[]) throws Exception {
+		ServerSocket socketS = new ServerSocket(3916);
+		System.out.println("Server Waiting for Client to be connected...");
+		Socket socket = socketS.accept();
+		System.out.println("CONNECTION ESTABLISHED");
+		PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
+		Scanner sc = new Scanner(socket.getInputStream());
+		String msg = "";
+		double num=1;
+		
+		while(!(msg.equals("Bye"))) {
+			msg = sc.nextLine();
+			if(msg.equals("Bye")){
+				pw.println("Thank You For Using My Program");
+				break;
+			 }
+			System.out.println("Recieved From Client : "+msg);
+			try {
+				num = Double.parseDouble(msg);
+			} catch(Exception e) {}
+			pw.println(num+" SAR = "+ num* 0.26+ "USD");
+            pw.println(num+" SAR = "+ num* 0.24+ "EUR");
+			pw.println(num+" SAR = "+ num* 0.20+ "GBP");
+			pw.println(num+" SAR = "+ num* 1.73+ "CNY");
+           
+			
+		}
+		socket.close();
+	}
+}
